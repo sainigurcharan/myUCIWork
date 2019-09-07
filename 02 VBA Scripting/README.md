@@ -7,13 +7,13 @@ Macro Enabled Excel File with output
 VBA script to compile the Stock data as required
 
 ### Screenshots for each year
-**2014 Stock Data:** 
+**2014** 
 ![](Images/2014.jpg)
 
-**2015 Stock Data:** 
+**2015** 
 ![](Images/2015.jpg)
 
-**2016 Stock Data:** 
+**2016** 
 ![](Images/2016.jpg)
 
 ## Instructions
@@ -32,5 +32,6 @@ VBA script to compile the Stock data as required
 
 ### CHALLENGES
 
-1. Your solution will also be able to return the stock with the "Greatest % increase", "Greatest % Decrease" and "Greatest total volume". 
-2. Make the appropriate adjustments to your VBA script that will allow it to run on every worksheet, i.e., every year, just by running the VBA script once.
+* Your solution will also be able to return the stock with the "Greatest % increase", "Greatest % Decrease" and "Greatest total volume".
+
+* Make the appropriate adjustments to your VBA script that will allow it to run on every worksheet, i.e., every year, just by running the VBA script once.
