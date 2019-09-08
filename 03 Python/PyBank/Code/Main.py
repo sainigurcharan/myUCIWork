@@ -1,6 +1,24 @@
 import os
 import csv
 from statistics import mean
+
+#function to return the average of list values
+def getAverage(listValues):
+    avgChange = round(mean(listValues), 2)
+    return avgChange
+
+#funtion to write same print statement to console and text file
+def printWriteOutput(printValues, printToValue):
+    if (printToValue == "Print"):
+        print(printValues)
+
+    elif (printToValue == "File"):
+        # Specify the file to write to
+        textFilePAth = os.path.join('../Resources', 'PyBank.txt')
+        with open(textFilePAth, "w") as textFile:
+            textFile.write(printValues)
+            textFile.close()
+
 #set csv path
 csvPath = os.path.join('../Resources', 'budget_data.csv')
 
@@ -16,10 +34,9 @@ profitLossList = []
 
 # Read in the CSV file
 with open(csvPath, 'r', newline='') as csvFile:
-    # Split the data on commas
     csvReader = csv.reader(csvFile, delimiter=',')
     #Skip the header row
-    skipHeader = next(csvReader)
+    next(csvReader)
     #get previous row
     prevRow = next(csvReader)
     #add into total for the previous row
@@ -42,26 +59,19 @@ with open(csvPath, 'r', newline='') as csvFile:
         prevRow = curRow
         dataLen += 1
     #Average change
-    avgChange = round(mean(profitLossList), 2)
+    avgChange = getAverage(profitLossList)
     #Print the output as required
-    print("Financial Analysis")
-    print("---------------------------------------------------")
-    print(f"Total Months: {dataLen+1}")
-    print(f"Total: ${total}")
-    print(f"Average Change: ${avgChange}")
-    print(f"Greatest Increase in Profits: {gIncProfitMonth} (${gIncProfit})")
-    print(f"Greatest Decrease in Profits: {gDecProfitMonth} (${gDecProfit})")
-    print("---------------------------------------------------")
+    printLines = ""
+    printLines += "Financial Analysis \n"
+    printLines += "---------------------------------------------------\n"
+    printLines += "Total Months: " + str(dataLen+1) + "\n"
+    printLines += "Total: $" + str(total) + "\n"
+    printLines += "Average Change: $" + str(avgChange) + "\n"
+    printLines += "Greatest Increase in Profits: " + str(gIncProfitMonth) + " ($" + str(gIncProfit) + ")\n"
+    printLines += "Greatest Decrease in Profits: " + str(gDecProfitMonth) + " ($" + str(gDecProfit) + ")\n"
+    printLines += "---------------------------------------------------"
 
-# Specify the file to write to
-textFilePAth = os.path.join('../Resources', 'PyBank.txt')
-textFile = open(textFilePAth,"w")
-textFile.write("Financial Analysis \n")
-textFile.write("---------------------------------------------------\n")
-textFile.write(f"Total Months: {dataLen+1}\n")
-textFile.write(f"Total: ${total}\n")
-textFile.write(f"Average Change: ${avgChange}\n")
-textFile.write(f"Greatest Increase in Profits: {gIncProfitMonth} (${gIncProfit})\n")
-textFile.write(f"Greatest Decrease in Profits: {gDecProfitMonth} (${gDecProfit})\n")
-textFile.write("---------------------------------------------------")
-textFile.close()
+    #Call function to print on console
+    printWriteOutput(printLines, "Print")
+    # Call function to print on text file
+    printWriteOutput(printLines, "File")
