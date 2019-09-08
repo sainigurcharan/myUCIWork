@@ -53,3 +53,15 @@ with open(csvPath, 'r', newline='') as csvFile:
     print(f"Greatest Decrease in Profits: {gDecProfitMonth} (${gDecProfit})")
     print("---------------------------------------------------")
 
+# Specify the file to write to
+textFilePAth = os.path.join('../Resources', 'PyBank.txt')
+textFile = open(textFilePAth,"w")
+textFile.write("Financial Analysis \n")
+textFile.write("---------------------------------------------------\n")
+textFile.write(f"Total Months: {dataLen+1}\n")
+textFile.write(f"Total: ${total}\n")
+textFile.write(f"Average Change: ${avgChange}\n")
+textFile.write(f"Greatest Increase in Profits: {gIncProfitMonth} (${gIncProfit})\n")
+textFile.write(f"Greatest Decrease in Profits: {gDecProfitMonth} (${gDecProfit})\n")
+textFile.write("---------------------------------------------------")
+textFile.close()
