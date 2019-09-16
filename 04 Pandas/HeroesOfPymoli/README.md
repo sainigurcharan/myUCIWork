@@ -223,22 +223,17 @@ purchaseAnalysisDF.head()
 
 
 ```python
-totPlayer = mainDF["SN"].nunique()
-genderMale = mainDF[mainDF["Gender"] == "Male"]["SN"].nunique()
-genderFemale = mainDF[mainDF["Gender"] == "Female"]["SN"].nunique()
-#genderOther = mainDF[mainDF["Gender"] == "Other / Non-Disclosed"].nunique()
-genderOther = totPlayer - (genderMale + genderFemale)
-genderMalePerc = ((genderMale/totPlayer)*100)
-genderFemalePerc = ((genderFemale/totPlayer)*100)
-genderOtherPerc = ((genderOther/totPlayer)*100)
-colName = ["Gender", "Total Count", "Percentage of Players"]
-
-# presenting data into Gender Demographics data frame to present
+# set data frame group by Gender
+genderGroupByDF = mainDF.groupby(["Gender"])
+totCount = genderGroupByDF["SN"].nunique().sum()
+totCountByGender = genderGroupByDF["SN"].nunique()
+percOfPlayers = (totCountByGender/totCount) * 100
 genderDemographicDF = pd.DataFrame({
-    "Gender": ["Male", "Female", "Other/ Non-Disclosed"],
-    "Total Count": [genderMale, genderFemale, genderOther],
-    "Percentage of Players": [genderMalePerc, genderFemalePerc, genderOtherPerc]},
-    columns = colName)
+    "Total Count": totCountByGender,
+    "Percentage of Players": percOfPlayers
+})
+# sort by the percentage of players
+genderDemographicDF = genderDemographicDF.sort_values(["Percentage of Players"], ascending=False).head()
 # format the float columns
 genderDemographicDF["Percentage of Players"] = genderDemographicDF["Percentage of Players"].map('{:.2f}%'.format)
 genderDemographicDF.head()
@@ -265,27 +260,28 @@ genderDemographicDF.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Gender</th>
       <th>Total Count</th>
       <th>Percentage of Players</th>
+    </tr>
+    <tr>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>Male</td>
+      <th>Male</th>
       <td>484</td>
       <td>84.03%</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>Female</td>
+      <th>Female</th>
       <td>81</td>
       <td>14.06%</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>Other/ Non-Disclosed</td>
+      <th>Other / Non-Disclosed</th>
       <td>11</td>
       <td>1.91%</td>
     </tr>
@@ -306,30 +302,19 @@ genderDemographicDF.head()
 
 
 ```python
-totMalePurchase = mainDF[mainDF["Gender"] == "Male"]["Price"].count()
-totFemalePurchase = mainDF[mainDF["Gender"] == "Female"]["Price"].count()
-# 'totPurchase' from Purchasing Analysis data above
-totOtherPurchase = totPurchase - (totMalePurchase + totFemalePurchase)
-malePriceAvg = mainDF[mainDF["Gender"] == "Male"]['Price'].mean()
-femalePriceAvg = mainDF[mainDF["Gender"] == "Female"]['Price'].mean()
-otherPriceAvg = mainDF[mainDF["Gender"] == "Other / Non-Disclosed"]['Price'].mean()
-malePriceTot = mainDF[mainDF["Gender"] == "Male"]['Price'].sum()
-femalePriceTot = mainDF[mainDF["Gender"] == "Female"]['Price'].sum()
-otherPriceTot = mainDF[mainDF["Gender"] == "Other / Non-Disclosed"]['Price'].sum()
-# 'genderMale', 'genderFemale', 'genderOther' from Gender Demographic data above
-maleAvgPurchaseTot = malePriceTot/genderMale
-femaleAvgPurchaseTot = femalePriceTot/genderFemale
-otherAvgPurchaseTot = otherPriceTot/genderOther
-colName = ["Gender", "Purchase Count", "Average Purchase Price", "Total Purchase Value", "Avg Purchase Total PP By Gender"]
-
+# set data frame group by Gender
+purchaseCount = genderGroupByDF["Gender"].count()
+avgPurchasePrice = genderGroupByDF["Price"].mean()
+totPurchasePrice = genderGroupByDF["Price"].sum()
+totAgeCount = genderGroupByDF["SN"].nunique()
+avgTotPurchasePPGender = totPurchasePrice/totAgeCount
 # presenting data into Purchasing Analysis (Gender) data frame to present
 genderPurchaseAnalysisDF = pd.DataFrame({
-    "Gender": ["Female", "Male", "Other / Non-Disclosed"], 
-    "Purchase Count": [totFemalePurchase, totMalePurchase, totOtherPurchase],
-    "Average Purchase Price": [femalePriceAvg, malePriceAvg, otherPriceAvg], 
-    "Total Purchase Value": [femalePriceTot, malePriceTot, otherPriceTot],
-    "Avg Purchase Total PP By Gender": [femaleAvgPurchaseTot, maleAvgPurchaseTot, otherAvgPurchaseTot]},
-    columns = colName)
+    "Purchase Count": purchaseCount,
+    "Average Purchase Price": avgPurchasePrice,
+    "Total Purchase Value": totPurchasePrice,
+    "Avg Purchase Total PP By Gender": avgTotPurchasePPGender
+})
 # format the float columns
 genderPurchaseAnalysisDF["Average Purchase Price"] = genderPurchaseAnalysisDF["Average Purchase Price"].map('${:.2f}'.format)
 genderPurchaseAnalysisDF["Total Purchase Value"] = genderPurchaseAnalysisDF["Total Purchase Value"].map('${:.2f}'.format)
@@ -358,33 +343,36 @@ genderPurchaseAnalysisDF.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Gender</th>
       <th>Purchase Count</th>
       <th>Average Purchase Price</th>
       <th>Total Purchase Value</th>
       <th>Avg Purchase Total PP By Gender</th>
     </tr>
+    <tr>
+      <th>Gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>Female</td>
+      <th>Female</th>
       <td>113</td>
       <td>$3.20</td>
       <td>$361.94</td>
       <td>$4.47</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>Male</td>
+      <th>Male</th>
       <td>652</td>
       <td>$3.02</td>
       <td>$1967.64</td>
       <td>$4.07</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>Other / Non-Disclosed</td>
+      <th>Other / Non-Disclosed</th>
       <td>15</td>
       <td>$3.35</td>
       <td>$50.19</td>
