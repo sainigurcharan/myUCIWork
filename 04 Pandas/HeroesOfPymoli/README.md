@@ -1,3 +1,9 @@
+# Observations
+* Analysing the given purchase data, out of unique 576 players the major portion is male players who are enjoying the big percentage 84%, where female percentage is quite low at 14% and Others/ Non-Disclosed are negligible.
+
+* Analysing the Age demographic data shows that age between 20-24 has the maximum number of players purchasing the game.
+
+* Analysing the most popular and most profitable item, the Oathbreaker & Last Hope of the Breaking Storm enjoys the top rank out of all the items.
 ```python
 # importing the pandas library
 import pandas as pd
