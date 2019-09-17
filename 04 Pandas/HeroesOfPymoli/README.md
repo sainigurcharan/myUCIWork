@@ -168,6 +168,7 @@ purchaseAnalysisDF = pd.DataFrame({"Number of Unique Items": [uniqueTotalItems],
                              "Number of Purchases": [totPurchase],
                              "Total Revenue": [totRevenue]},
                               columns=colName)
+
 # format the float columns
 purchaseAnalysisDF["Average Purchase Price"] = purchaseAnalysisDF["Average Purchase Price"].map('${:.2f}'.format)
 purchaseAnalysisDF["Total Revenue"] = purchaseAnalysisDF["Total Revenue"].map('${:.2f}'.format)
@@ -232,8 +233,10 @@ genderDemographicDF = pd.DataFrame({
     "Total Count": totCountByGender,
     "Percentage of Players": percOfPlayers
 })
+
 # sort by the percentage of players
 genderDemographicDF = genderDemographicDF.sort_values(["Percentage of Players"], ascending=False).head()
+
 # format the float columns
 genderDemographicDF["Percentage of Players"] = genderDemographicDF["Percentage of Players"].map('{:.2f}%'.format)
 genderDemographicDF.head()
@@ -308,6 +311,7 @@ avgPurchasePrice = genderGroupByDF["Price"].mean()
 totPurchasePrice = genderGroupByDF["Price"].sum()
 totAgeCount = genderGroupByDF["SN"].nunique()
 avgTotPurchasePPGender = totPurchasePrice/totAgeCount
+
 # presenting data into Purchasing Analysis (Gender) data frame to present
 genderPurchaseAnalysisDF = pd.DataFrame({
     "Purchase Count": purchaseCount,
@@ -315,6 +319,7 @@ genderPurchaseAnalysisDF = pd.DataFrame({
     "Total Purchase Value": totPurchasePrice,
     "Avg Purchase Total PP By Gender": avgTotPurchasePPGender
 })
+
 # format the float columns
 genderPurchaseAnalysisDF["Average Purchase Price"] = genderPurchaseAnalysisDF["Average Purchase Price"].map('${:.2f}'.format)
 genderPurchaseAnalysisDF["Total Purchase Value"] = genderPurchaseAnalysisDF["Total Purchase Value"].map('${:.2f}'.format)
@@ -390,6 +395,7 @@ genderPurchaseAnalysisDF.head()
 
 
 ```python
+# creating bins anf labels
 ageDemographicBin = [0, 9.99, 14.99, 19.99, 24.99, 29.99, 34.99, 39.99, 99999]
 ageDemographicLabel = ["<10", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40+"]
 
@@ -399,12 +405,12 @@ mainDF["Age Range"] = pd.cut(x=mainDF["Age"], bins=ageDemographicBin, labels=age
 # total count of each age bin and percentage
 totCountAgeDemographic = mainDF["Age Range"].value_counts()
 ageDemographicPerc = ((totCountAgeDemographic / uniquePlayer) * 100).round(2)
-
 ageDemographicDF = pd.DataFrame({
     "Total Count": totCountAgeDemographic,
     "Percentage of Players": ageDemographicPerc})
 
 ageDemographicDF = ageDemographicDF.sort_index()
+
 # format the float columns
 ageDemographicDF["Percentage of Players"] = ageDemographicDF["Percentage of Players"].map('{:.2f}%'.format)
 ageDemographicDF.head(10)
@@ -512,6 +518,7 @@ ageDemographicAnalysisDF = pd.DataFrame({"Purchase Count": purchaseCount,
                                  "Average Purchase Price": avgPurchasePrice,
                                  "Total Purchase Value":totPurchaseValue,
                                  "Average Purchase Total Per Person": avgPurchasePricePP})
+
 # format the float columns
 ageDemographicAnalysisDF["Average Purchase Price"] = ageDemographicAnalysisDF["Average Purchase Price"].map('${:.2f}'.format)
 ageDemographicAnalysisDF["Total Purchase Value"] = ageDemographicAnalysisDF["Total Purchase Value"].map('${:.2f}'.format)
@@ -646,6 +653,7 @@ totalSpendersDF = pd.DataFrame({"Purchase Count": purchaseCount,
 
 # top five spenders from the descending order list
 totalSpendersDF = totalSpendersDF.sort_values(["Total Purchase Value"], ascending=False).head()
+
 # format the float columns
 totalSpendersDF["Average Purchase Price"] = totalSpendersDF["Average Purchase Price"].map('${:.2f}'.format)
 totalSpendersDF["Total Purchase Value"] = totalSpendersDF["Total Purchase Value"].map('${:.2f}'.format)
@@ -745,6 +753,7 @@ itemsDF = pd.DataFrame({"Purchase Count": totItemPurchaseCount,
 
 # top five popular items from the descending order list
 topPopularItemsDF = itemsDF.sort_values(["Purchase Count"], ascending=False).head()
+
 # format the float columns
 topPopularItemsDF["Item Price"] = topPopularItemsDF["Item Price"].map('${:.2f}'.format)
 topPopularItemsDF["Total Purchase Value"] = topPopularItemsDF["Total Purchase Value"].map('${:.2f}'.format)
@@ -841,6 +850,7 @@ topPopularItemsDF.head(10)
 ```python
 # top five profitable items from the descending order list
 topPopularItemsDF = itemsDF.sort_values(["Total Purchase Value"], ascending=False).head()
+
 # format the float columns
 topPopularItemsDF["Item Price"] = topPopularItemsDF["Item Price"].map('${:.2f}'.format)
 topPopularItemsDF["Total Purchase Value"] = topPopularItemsDF["Total Purchase Value"].map('${:.2f}'.format)
