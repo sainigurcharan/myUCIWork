@@ -15,7 +15,3 @@ Latitude and longitude values are traditionally measured either in decimal degre
 * There is not much correlation between Latitude and Cloudiness. But in cities north to the **equator** have the strong clustor of cloudiness above 80%.
 
 ![LatVsCloudiness](Output/LatVsCloudiness.png)
-
-* There is not much correlation between Latitude and wind speed. Still cities experience the 0 to 15 mph wind speed to both side of **equator**, South and North.
-
-![LatVsCloudiness](Output/LatVsWindSpeed.png)
