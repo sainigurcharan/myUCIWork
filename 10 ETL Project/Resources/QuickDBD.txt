@@ -1,0 +1,33 @@
+country_travel
+-
+country_name VARCHAR(100) PK
+country_code VARCHAR(2)
+country_desc VARCHAR
+embassy_consulate_usa VARCHAR
+entry_exit_requirements VARCHAR
+laws_circumstances VARCHAR
+safety_and_security VARCHAR
+health_circumstances VARCHAR
+
+hostel_travel
+-
+id SERIAL PK
+country_name VARCHAR(100) FK >- country_travel.country_name
+city_name VARCHAR(100)
+hostel_name VARCHAR(100)
+local_currency VARCHAR(3)
+rank VARCHAR(2)
+total_cost FLOAT
+attractions_cost FLOAT
+per_night_hostel FLOAT
+drinks_entertainment FLOAT
+meals FLOAT
+transportation FLOAT
+
+latitude_longitude
+-
+id SERIAL PK
+country_name VARCHAR(100) FK >- country_travel.country_name
+city_name VARCHAR(100)
+latitude FLOAT
+longitude FLOAT
