@@ -9,4 +9,4 @@
 #### [Final Output](cityMap.html)
 European Cities marked using heatmap on google map to show where the cheapest hostels exist.
 
-![final image](Resources\final_output.png)
+![final image](Resources/final_output.png)
