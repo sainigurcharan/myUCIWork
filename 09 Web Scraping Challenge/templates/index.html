@@ -25,8 +25,8 @@
         <!-- News Section -->
         <div class="container">
             <h3 style="color: black">Latest Mars News</h3>
-            <h6 style="color: black">{{ mars_info.news_title }}</h6>
-            <p style="color: black">{{ mars_info.news_p }}</p>
+            <h6 style="color: black">{{ marsInfo.news_title }}</h6>
+            <p style="color: black">{{ marsInfo.news_p }}</p>
         </div>
 
         <div class="container">
@@ -34,7 +34,7 @@
                 <!-- Left Image-->
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <h3 style="color: black">Featured Mars Image</h3>
-                    <img src="{{ mars_info.featured_image_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
+                    <img src="{{ marsInfo.featured_image_url }}" style="max-width:100%; max-height: auto;" alt="Mars Featured Image">
                 </div>
 
                 <!-- Weather Card -->
@@ -43,7 +43,7 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body text-white bg-dark">
                             <h6 class="card-title">Current Weather on Mars</h6>
-                            <p class="card-text">{{ mars_info.weather_tweet }}</p>
+                            <p class="card-text">{{ marsInfo.weather_tweet }}</p>
                         </div>
 
                     </div>
@@ -52,7 +52,7 @@
                     <br>
                     <h3 style="color: black">Mars Facts</h3>
                     <div style="max-width: 450px; max-height: 150px; font-size: 15px; margin-bottom: 65px; color: black">
-                        {{ mars_info.mars_facts|safe}}
+                        {{ marsInfo.mars_facts|safe}}
                     </div>
                 </div> <!-- col4 -->
             </div><!-- Row -->
@@ -64,7 +64,7 @@
             <hr>
             <div class="col-md-12">
                 <div class="row">
-                    {% for item in mars_info.hemisphereImageURLs %}
+                    {% for item in marsInfo.hemisphereImageURLs %}
                     <div class="col-md-6">
                         <div class="card text-white bg-dark" style="margin: 30px;">
                             <img class="card-img-top" src="{{ item.img_url }}" />
